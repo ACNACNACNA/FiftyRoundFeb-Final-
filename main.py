@@ -6,7 +6,6 @@ import aiofile
 import aiohttp
 from bs4 import BeautifulSoup
 import visualize
-from keepalive import keep_alive
 
 unfinished = 'Host Malone has not completed this part of me. You are free to harass him for this until I am ready.'
 responseData = []
@@ -24,10 +23,10 @@ async def on_ready():
     brief='This month\'s prompts'
 )
 async def prompt(ctx, arg1 = None):
-    listy = prompts.openFile("csvtest.csv")
     if arg1 == "all":
         await ctx.channel.send(file = discord.File('prompttext.txt'))
     else:
+        listy = prompts.openFile("csvtest.csv")
         try:
             num = int(arg1)
             await ctx.channel.send(prompts.getPrompt(num, listy))
@@ -46,12 +45,13 @@ async def response(ctx, arg = None, *, args=None):
     if isinstance(ctx.channel, discord.channel.DMChannel):
         if arg != None:
             try:
+                arg = int(arg)
                 if args != None:
-                    arg = int(arg)
-                    alertRelease = []
-                    alertRelease = await prompts.getResponse(args, arg, ctx.message.author.name, "responses.csv")
-                    for i in alertRelease:
+                    alert = []
+                    alert = await prompts.getResponse(args, arg, ctx.message.author.name, "responses.csv")
+                    for i in alert:
                         await ctx.channel.send(i)
+                    await ctx.channel.send("If you want to edit this submission, do `,response " + str(arg) + "` [Your response here].")
                 else:
                     await ctx.channel.send(
                         "https://media.discordapp.net/attachments/679485290934435852/932138432787021824/Screen_Shot_2022-01-15_at_11.04.59_PM.png")
@@ -59,7 +59,6 @@ async def response(ctx, arg = None, *, args=None):
             except:
                 if arg == "all":
                     if ctx.message.attachments:
-                        print(ctx.message.attachments)
                         sess = aiohttp.ClientSession()
                         req = await sess.get(str(ctx.message.attachments[0]))
                         soup = BeautifulSoup(await req.read(), 'html.parser')
@@ -70,17 +69,22 @@ async def response(ctx, arg = None, *, args=None):
                         await sess.close()
 
                         dat = open(r"C:\Users\Anthony. N\PycharmProjects\pythonProject\venv\personalfrf.txt", "r")
-                        personal = dat.read()
+                        person = dat.read()
+                        personal = list(person.split('\n'))
+                        print(personal)
                         alerts = []
-                        for row in personal:
+                        for i in personal[:50]:
                             alertRelease = []
-                            alertRelease = await prompts.getResponse(row, row.index, ctx.message.author.name, "responses.csv")
+                            alertRelease = await prompts.getResponse(i, (personal.index(i)+1), ctx.message.author.name, "responses.csv")
                             for i in alertRelease:
                                 alerts.append(i)
-            else:
-                await ctx.channel.send(
-                    "https://media.discordapp.net/attachments/679485290934435852/932138432787021824/Screen_Shot_2022-01-15_at_11.04.59_PM.png")
-                await ctx.channel.send("Choose an actual number")
+                        for i in alerts:
+                            await ctx.channel.send(i)
+                        await ctx.channel.send("Recording successful. PLEASE, PLEASE YOU **ONLY NEED TO DO THIS COMMAND ONCE.** If you wanna edit a response, just do ,response [prompt].")
+                else:
+                    await ctx.channel.send(
+                        "https://media.discordapp.net/attachments/679485290934435852/932138432787021824/Screen_Shot_2022-01-15_at_11.04.59_PM.png")
+                    await ctx.channel.send("Choose an actual number")
         else:
             await ctx.channel.send(
                 "https://media.discordapp.net/attachments/679485290934435852/932138432787021824/Screen_Shot_2022-01-15_at_11.04.59_PM.png")
@@ -217,7 +221,6 @@ async def harass(ctx, arg=None):
             for i in range(5):
                 await ctx.channel.send(ctx.author.mention)
 
-keep_alive()
 bot.run(os.environ['joke'])
 
 
