@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-import openpyxl
 import prompts
 import csv
 
@@ -10,8 +9,9 @@ def responseGraph(lisp):
         responseAmt.append(0)
     responses = prompts.openFile('responses.csv')
     for row in responses:
-        placeholder = row[0]
-        responseAmt[placeholder-1] = responseAmt[placeholder-1] + 1
+        if row != []:
+            placeholder = int(row[0])
+            responseAmt[placeholder-1] = responseAmt[placeholder-1] + 1
     plt.bar(promptNum, responseAmt)
     plt.title("Total Responses per Prompt")
     plt.xlabel("Responses")
@@ -34,7 +34,8 @@ def contestantGraph(lisp):
         respAmt.append(0)
     print(respAmt)
     for row in responses:
-        respAmt[row[2].index] += 1
+        if row != []:
+            respAmt[row[2].index] += 1
     plt.bar(contst, respAmt)
     plt.title("Contestants so far")
     plt.xlabel("Contestants")
