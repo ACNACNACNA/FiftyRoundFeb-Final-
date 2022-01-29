@@ -1,6 +1,4 @@
 import csv
-import openpyxl
-import csv
 
 def openFile(string):
     opened = open(string)
