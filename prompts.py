@@ -1,6 +1,4 @@
 import csv
-import openpyxl
-import csv
 
 def openFile(string):
     opened = open(string)
@@ -15,31 +13,33 @@ def getPrompt(number, listy):
         prompt = "It's called :sparkles: 50 :sparkles: Round February. Not " + str(number) + " Round February."
     return prompt
 
-async def getResponse(string, num, id, file):
+async def getResponse(string, num, name, id, file):
     opened = open(file)
     ready = csv.reader(opened)
     responses = list(ready)
+    print(responses)
     opened.close()
     alert = []
     current = []
-    valid = True
     if num <= 50 and num >= 1:
         for row in responses:
-           if int(row[0]) == num:
-                if row[2] == id:
-                    responses.remove(row)
-        current = [num, string, id, True]
+            if row != []:
+                if int(row[0]) == num:
+                    if row[2] == id:
+                        responses.remove(row)
+        current = [num, string, name, id, True]
         alert.append("Response " + str(num) + " has been recorded as: " + string)
+        alert.append("If you want to edit this submission, do `,response " + str(num) + "` [Your response here].")
         spaces = 0
         for char in string:
             if char == " ":
                 spaces = spaces + 1
         if spaces >= 10:
-            current = [num, string, id, False]
+            current = [num, string, name, id, False]
             alert.append("Response " + str(num) + " is over 10 words. Check for word count and/or double spaces.")
         tech = techCheck(num, string)
         if tech != []:
-            current = [num, string, id, False]
+            current = [num, string, name, id, False]
             for whoops in tech:
                 alert.append(whoops)
         if num == 14:
@@ -47,10 +47,10 @@ async def getResponse(string, num, id, file):
     else:
         alert.append("It's called :sparkles: 50 :sparkles: Round February. Not " + str(num) + " Round February.")
     opend = open(file, 'w')
-    ready = csv.writer(opend, lineterminator = '\n')
+    ready1 = csv.writer(opend, lineterminator = '\n')
     responses.append(current)
     for row in responses:
-        ready.writerow(row)
+        ready1.writerow(row)
     opend.close()
     return alert
 
@@ -59,7 +59,7 @@ def obtainResponse(list, id, num):
     exist = False
     for row in list:
         if row[0] == num:
-            if row[2] == id:
+            if row[3] == id:
                 exist = True
                 response = "Response " + str(row[0]) + ": " + row[1]
     if exist == False:
