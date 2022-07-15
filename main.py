@@ -127,104 +127,6 @@ async def look(ctx, arg = None):
     else:
         await ctx.channel.send( "https://media.discordapp.net/attachments/679485290934435852/932138432787021824/Screen_Shot_2022-01-15_at_11.04.59_PM.png")
         await ctx.channel.send("to use this command in DMs. You don't want to reveal your response.")
-<<<<<<< HEAD
-
-
-@bot.command(
-    help='Use this command to see if your responses break the prompt\'s technicals before submitting!'
-        + "\n\t ,technical [number]: Does your response break the technical for round [number]?",
-    brief='Technical checker (must be used in DM\'s)'
-)
-async def technical(ctx, arg = None, *, args = None):
-    if isinstance(ctx.channel, discord.channel.DMChannel):
-        try:
-            if arg != None:
-                arg = int(arg)
-                checks = prompts.techCheck(arg, args)
-                print(checks)
-                for i in checks:
-                    await ctx.channel.send(i)
-                if checks == []:
-                    await ctx.channel.send("You have not broken the rules with this response. You are freeeee...")
-        except:
-            await ctx.channel.send("https://media.discordapp.net/attachments/679485290934435852/932138432787021824/Screen_Shot_2022-01-15_at_11.04.59_PM.png")
-            await ctx.channel.send("Choose an actual number")
-    else:
-        await ctx.channel.send( "https://media.discordapp.net/attachments/679485290934435852/932138432787021824/Screen_Shot_2022-01-15_at_11.04.59_PM.png")
-        await ctx.channel.send("to use this command in DMs. You don't want to reveal your response.")
-
-
-@bot.command(
-    help=unfinished,
-    brief='Information about the month [UNDER CONSTRUCTION]'
-)
-async def frf(ctx):
-    await ctx.channel.send( "https://media.discordapp.net/attachments/679485290934435852/932138432787021824/Screen_Shot_2022-01-15_at_11.04.59_PM.png")
-    await ctx.channel.send("to be patient. The feature is not finished.")
-
-
-@bot.command(
-    help=unfinished,
-    brief='Used to vote for the month (must be used in DM\'s) [UNDER CONSTRUCTION]'
-)
-async def vote(ctx):
-    if isinstance(ctx.channel, discord.channel.DMChannel):
-        await ctx.channel.send(
-            "https://media.discordapp.net/attachments/679485290934435852/932138432787021824/Screen_Shot_2022-01-15_at_11.04.59_PM.png")
-        await ctx.channel.send("to be patient. The feature is not finished.")
-    else:
-        await ctx.channel.send("https://media.discordapp.net/attachments/679485290934435852/932138432787021824/Screen_Shot_2022-01-15_at_11.04.59_PM.png")
-        await ctx.channel.send("to use this command in DMs. You don't want to reveal your response.")
-
-
-@bot.command(
-    help="Wanna see stats? Here's some real-time ones:"
-         "\n\t ,graph responses: Responses per Prompt for all 50"
-         "\n\t ,graph contestants: Creates a list of who has submitted and how many they responded to.",
-    brief='Shows beautiful graphs [UNDER CONSTRUCTION]'
-)
-async def graph(ctx, arg = None):
-    if arg == "responses":
-        visualize.responseGraph(responseData)
-        await ctx.channel.send(file = discord.File("frfresponse.png"))
-    elif arg =="contestants":
-        visualize.contestantGraph(responseData)
-        await ctx.channel.send(file=discord.File("frfcontestants.png"))
-    elif arg == "votes":
-        await ctx.channel.send(
-            "https://media.discordapp.net/attachments/679485290934435852/932138432787021824/Screen_Shot_2022-01-15_at_11.04.59_PM.png")
-        await ctx.channel.send("to wait. This graph is unavailiable.")
-    elif arg == "procrastimeter":
-        await ctx.channel.send(
-            "https://media.discordapp.net/attachments/679485290934435852/932138432787021824/Screen_Shot_2022-01-15_at_11.04.59_PM.png")
-        await ctx.channel.send("to wait. This graph is unavailiable.")
-    elif arg == "contributors":
-        await ctx.channel.send(
-            "https://media.discordapp.net/attachments/679485290934435852/932138432787021824/Screen_Shot_2022-01-15_at_11.04.59_PM.png")
-        await ctx.channel.send("to wait. This graph is unavailiable.")
-    else:
-        await ctx.channel.send("https://media.discordapp.net/attachments/679485290934435852/935339292396494848/unknown.png")
-
-
-@bot.command(
-    help=unfinished,
-    brief='harass - Motivates the host. Effectiveness may vary.'
-)
-async def harass(ctx, arg=None):
-    if arg  == None:
-        await ctx.channel.send("**This is Host Malone overriding the command. Do not even try to listen to this calendar. This bot wasn't even built from a full one. Do not trust the entire month of Februrary. This is your last warning.**")
-    else:
-        await ctx.channel.send("https://media.discordapp.net/attachments/679485290934435852/932138432787021824/Screen_Shot_2022-01-15_at_11.04.59_PM.png")
-        await ctx.channel.send("wait")
-        mention = f'<@!335849071430336514>'
-        if arg == mention:
-            for i in range(5):
-                await ctx.channel.send(ctx.author.mention)
-
-bot.run(os.environ['joke'])
-
-=======
-
 
 @bot.command(
     help='Use this command to see if your responses break the prompt\'s technicals before submitting!'
@@ -320,4 +222,95 @@ async def harass(ctx, arg=None):
 bot.run(os.environ['joke'])
 
 
->>>>>>> 4193095b500d298815ace6a5d451a85770ceb8f0
+@bot.command(
+    help='Use this command to see if your responses break the prompt\'s technicals before submitting!'
+        + "\n\t ,technical [number]: Does your response break the technical for round [number]?",
+    brief='Technical checker (must be used in DM\'s)'
+)
+async def technical(ctx, arg = None, *, args = None):
+    if isinstance(ctx.channel, discord.channel.DMChannel):
+        try:
+            if arg != None:
+                arg = int(arg)
+                checks = prompts.techCheck(arg, args)
+                print(checks)
+                for i in checks:
+                    await ctx.channel.send(i)
+                if checks == []:
+                    await ctx.channel.send("You have not broken the rules with this response. You are freeeee...")
+        except:
+            await ctx.channel.send("https://media.discordapp.net/attachments/679485290934435852/932138432787021824/Screen_Shot_2022-01-15_at_11.04.59_PM.png")
+            await ctx.channel.send("Choose an actual number")
+    else:
+        await ctx.channel.send( "https://media.discordapp.net/attachments/679485290934435852/932138432787021824/Screen_Shot_2022-01-15_at_11.04.59_PM.png")
+        await ctx.channel.send("to use this command in DMs. You don't want to reveal your response.")
+
+
+@bot.command(
+    help=unfinished,
+    brief='Information about the month [UNDER CONSTRUCTION]'
+)
+async def frf(ctx):
+    await ctx.channel.send( "https://media.discordapp.net/attachments/679485290934435852/932138432787021824/Screen_Shot_2022-01-15_at_11.04.59_PM.png")
+    await ctx.channel.send("to be patient. The feature is not finished.")
+
+
+@bot.command(
+    help=unfinished,
+    brief='Used to vote for the month (must be used in DM\'s) [UNDER CONSTRUCTION]'
+)
+async def vote(ctx):
+    if isinstance(ctx.channel, discord.channel.DMChannel):
+        await ctx.channel.send(
+            "https://media.discordapp.net/attachments/679485290934435852/932138432787021824/Screen_Shot_2022-01-15_at_11.04.59_PM.png")
+        await ctx.channel.send("to be patient. The feature is not finished.")
+    else:
+        await ctx.channel.send("https://media.discordapp.net/attachments/679485290934435852/932138432787021824/Screen_Shot_2022-01-15_at_11.04.59_PM.png")
+        await ctx.channel.send("to use this command in DMs. You don't want to reveal your response.")
+
+
+@bot.command(
+    help="Wanna see stats? Here's some real-time ones:"
+         "\n\t ,graph responses: Responses per Prompt for all 50"
+         "\n\t ,graph contestants: Creates a list of who has submitted and how many they responded to.",
+    brief='Shows beautiful graphs [UNDER CONSTRUCTION]'
+)
+async def graph(ctx, arg = None):
+    if arg == "responses":
+        visualize.responseGraph(responseData)
+        await ctx.channel.send(file = discord.File("frfresponse.png"))
+    elif arg =="contestants":
+        visualize.contestantGraph(responseData)
+        await ctx.channel.send(file=discord.File("frfcontestants.png"))
+    elif arg == "votes":
+        await ctx.channel.send(
+            "https://media.discordapp.net/attachments/679485290934435852/932138432787021824/Screen_Shot_2022-01-15_at_11.04.59_PM.png")
+        await ctx.channel.send("to wait. This graph is unavailiable.")
+    elif arg == "procrastimeter":
+        await ctx.channel.send(
+            "https://media.discordapp.net/attachments/679485290934435852/932138432787021824/Screen_Shot_2022-01-15_at_11.04.59_PM.png")
+        await ctx.channel.send("to wait. This graph is unavailiable.")
+    elif arg == "contributors":
+        await ctx.channel.send(
+            "https://media.discordapp.net/attachments/679485290934435852/932138432787021824/Screen_Shot_2022-01-15_at_11.04.59_PM.png")
+        await ctx.channel.send("to wait. This graph is unavailiable.")
+    else:
+        await ctx.channel.send("https://media.discordapp.net/attachments/679485290934435852/935339292396494848/unknown.png")
+
+
+@bot.command(
+    help=unfinished,
+    brief='harass - Motivates the host. Effectiveness may vary.'
+)
+async def harass(ctx, arg=None):
+    if arg  == None:
+        await ctx.channel.send("**This is Host Malone overriding the command. Do not even try to listen to this calendar. This bot wasn't even built from a full one. Do not trust the entire month of Februrary. This is your last warning.**")
+    else:
+        await ctx.channel.send("https://media.discordapp.net/attachments/679485290934435852/932138432787021824/Screen_Shot_2022-01-15_at_11.04.59_PM.png")
+        await ctx.channel.send("wait")
+        mention = f'<@!335849071430336514>'
+        if arg == mention:
+            for i in range(5):
+                await ctx.channel.send(ctx.author.mention)
+
+bot.run(os.environ['joke'])
