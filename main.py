@@ -220,6 +220,6 @@ async def harass(ctx, arg=None):
             for i in range(5):
                 await ctx.channel.send(ctx.author.mention)
 
-bot.run('OTI4NzcwODAxODI4NzYxNjQx.Gv7x7t.WpmgfKWXscFcvDaE-zueou8clC-AUeigz_SGd4')
+bot.run('token')
 
 
