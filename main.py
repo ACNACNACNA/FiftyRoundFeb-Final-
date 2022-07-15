@@ -48,10 +48,9 @@ async def response(ctx, arg = None, *, args=None):
                 arg = int(arg)
                 if args != None:
                     alert = []
-                    alert = await prompts.getResponse(args, arg, ctx.message.author.name, "responses.csv")
+                    alert = await prompts.getResponse(args, arg, ctx.message.author.name, str(ctx.message.author.id), "responses.csv")
                     for i in alert:
                         await ctx.channel.send(i)
-                    await ctx.channel.send("If you want to edit this submission, do `,response " + str(arg) + "` [Your response here].")
                 else:
                     await ctx.channel.send(
                         "https://media.discordapp.net/attachments/679485290934435852/932138432787021824/Screen_Shot_2022-01-15_at_11.04.59_PM.png")
@@ -75,12 +74,12 @@ async def response(ctx, arg = None, *, args=None):
                         alerts = []
                         for i in personal[:50]:
                             alertRelease = []
-                            alertRelease = await prompts.getResponse(i, (personal.index(i)+1), ctx.message.author.name, "responses.csv")
+                            alertRelease = await prompts.getResponse(i, (personal.index(i)+1), ctx.message.author.name, str(ctx.message.author.id), "responses.csv")
                             for i in alertRelease:
                                 alerts.append(i)
                         for i in alerts:
                             await ctx.channel.send(i)
-                        await ctx.channel.send("Recording successful. PLEASE, PLEASE YOU **ONLY NEED TO DO THIS COMMAND ONCE.** If you wanna edit a response, just do ,response [prompt].")
+                        await ctx.channel.send("Recording successful. PLEASE, PLEASE YOU **ONLY NEED TO DO THIS COMMAND ONCE.** If you wanna edit a response, just do ,response [prompt] [edited response].")
                 else:
                     await ctx.channel.send(
                         "https://media.discordapp.net/attachments/679485290934435852/932138432787021824/Screen_Shot_2022-01-15_at_11.04.59_PM.png")
@@ -105,7 +104,7 @@ async def look(ctx, arg = None):
         listy = prompts.openFile("responses.csv")
         if arg != None:
             if arg == "all":
-                singleData = prompts.obtainAll(listy, ctx.message.author.id)
+                singleData = prompts.obtainAll(listy, str(ctx.message.author.id))
                 await ctx.channel.send("Your responses:")
                 for row in singleData:
                     await ctx.channel.send("Response " + str(row[0]) + ": " + row[1])
@@ -113,7 +112,7 @@ async def look(ctx, arg = None):
                 try:
                     num = int(arg)
                     if num <= 50 and num >= 1:
-                        await ctx.channel.send(prompts.obtainResponse(listy, ctx.message.author.id, arg))
+                        await ctx.channel.send(prompts.obtainResponse(listy, str(ctx.message.author.id), arg))
                     else:
                         prompt = "It's called :sparkles: 50 :sparkles: Round February. Not " + str(
                             num) + " Round February."
@@ -221,6 +220,6 @@ async def harass(ctx, arg=None):
             for i in range(5):
                 await ctx.channel.send(ctx.author.mention)
 
-bot.run(os.environ['joke'])
+bot.run('OTI4NzcwODAxODI4NzYxNjQx.Gv7x7t.WpmgfKWXscFcvDaE-zueou8clC-AUeigz_SGd4')
 
 
