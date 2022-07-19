@@ -313,4 +313,4 @@ async def harass(ctx, arg=None):
             for i in range(5):
                 await ctx.channel.send(ctx.author.mention)
 
-bot.run(os.environ['joke'])
+bot.run(os.environ['TOKEN'])
